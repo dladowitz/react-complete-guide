@@ -1,9 +1,25 @@
 //styled-components.com/
-//formidable.com/open-source/radium/
+// formidable.com/open-source/radium/
 
-https: https: import React, { Component } from "react";
+import React, { Component } from "react";
 import './App.css';
 import Person from './Person/Person';
+import styled from 'styled-components';
+
+const StyledButton = styled.button`
+  background-color: white;
+  color: ${props => props.alt ? "green" : "red"};
+  font: inherit;
+  border: 1px solid
+    ${props => { props.alt ? "green" : "red" }};
+  padding: 8px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: lightgray;
+  }
+`;
+
 
 class App extends Component {
   state = {
@@ -45,18 +61,6 @@ class App extends Component {
   }
 
   render () {
-    const style = {
-      backgroundColor: 'white',
-      color: 'red',
-      font: 'inherit',
-      border: '1px solid red',
-      padding: '8px',
-      cursor: 'pointer',
-      ':hover': {
-        backgroundColor: 'lightgray', 
-      }
-    }
-
     let persons = "";
     
     if (this.state.showNames) {
@@ -72,9 +76,6 @@ class App extends Component {
           ></Person>
         })
       )
-
-      style.color = 'green'
-      style.border = '1px solid green'
     }
 
     const titleClass = []
@@ -92,9 +93,9 @@ class App extends Component {
           Hi, I'm a React App
         </h1>
 
-        <button onClick={() => this.toggleNameHandler("David")} style={style}>
+        <StyledButton alt={this.state.showNames} onClick={() => this.toggleNameHandler("David")}>
           Toggle Names
-        </button>
+        </StyledButton>
 
         <div>{persons}</div>
       </div>
