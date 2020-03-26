@@ -1,6 +1,9 @@
-import React, { Component } from 'react';
+//styled-components.com/
+//formidable.com/open-source/radium/
+
+https: https: import React, { Component } from "react";
 import './App.css';
-import Person from './Person/Person'
+import Person from './Person/Person';
 
 class App extends Component {
   state = {
@@ -25,10 +28,11 @@ class App extends Component {
     this.setState({ persons: persons })
   }
 
-  nameChangeHandler = (event) => {
+  nameChangeHandler = (event, personIndex) => {
     console.log("Calling nameChangeHandler");
-    let newPersons = this.state.persons;
-    console.log(event.target.id);
+    const newPersons = [...this.state.persons];
+    console.log("event.target.id: ", event.target.id)
+    
     
     newPersons[event.target.id].name = event.target.value;
     this.setState({
@@ -43,34 +47,55 @@ class App extends Component {
   render () {
     const style = {
       backgroundColor: 'white',
+      color: 'red',
       font: 'inherit',
-      border: '1px solid blue',
+      border: '1px solid red',
       padding: '8px',
       cursor: 'pointer',
+      ':hover': {
+        backgroundColor: 'lightgray', 
+      }
     }
 
-    let persons = "Hiding Persons";
+    let persons = "";
     
     if (this.state.showNames) {
       persons = (
         this.state.persons.map((person, index) => {
           return <Person
             key={index}
+            id={index}
             name={person.name}
             age={person.age}
             click={() => this.deleteNameHandler(index)}
-            changed={this.nameChangeHandler}
+            changed={(event) => this.nameChangeHandler(event, index)}
           ></Person>
         })
       )
+
+      style.color = 'green'
+      style.border = '1px solid green'
+    }
+
+    const titleClass = []
+    if (this.state.persons.length <= 2) {
+      titleClass.push("red")
+    }
+
+    if (this.state.persons.length <= 1) {
+      titleClass.push("lighter")
     }
 
     return (
       <div className="App">
-        <h1 onCopy={this.copyHandler}>Hi, I'm a React App</h1>
+        <h1 className={titleClass.join(" ")} onCopy={this.copyHandler}>
+          Hi, I'm a React App
+        </h1>
 
-        <button onClick={() => this.toggleNameHandler('David')} style={style}>Toggle Names</button>
-        
+        <button onClick={() => this.toggleNameHandler("David")} style={style}>
+          Toggle Names
+        </button>
+
         <div>{persons}</div>
       </div>
     );
