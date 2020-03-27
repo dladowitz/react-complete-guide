@@ -2,8 +2,8 @@
 // formidable.com/open-source/radium/
 
 import React, { Component } from "react";
-import './App.css';
-import Person from './Person/Person';
+import classes from './App.css';
+import Person from '../components/Persons/Person/Person';
 
 
 class App extends Component {
@@ -47,6 +47,7 @@ class App extends Component {
 
   render () {
     let persons = "";
+    let btnClass = [classes.Button]
     
     if (this.state.showNames) {
       persons = (
@@ -61,24 +62,26 @@ class App extends Component {
           ></Person>
         })
       )
+    } else {
+      btnClass.push(classes.Red);
     }
 
-    const titleClass = []
+    
     if (this.state.persons.length <= 2) {
-      titleClass.push("red")
+      btnClass.push(classes.Red)
     }
 
     if (this.state.persons.length <= 1) {
-      titleClass.push("lighter")
+      btnClass.push(classes.lighter)
     }
 
     return (
-      <div className="App">
-        <h1 className={titleClass.join(" ")} onCopy={this.copyHandler}>
+      <div className={classes.App}>
+        <h1 onCopy={this.copyHandler}>
           Hi, I'm a React App
         </h1>
 
-        <button alt={this.state.showNames} onClick={() => this.toggleNameHandler("David")}>
+        <button className={btnClass.join('  ')} alt={this.state.showNames} onClick={() => this.toggleNameHandler("David")}>
           Toggle Names
         </button>
 
