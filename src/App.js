@@ -4,21 +4,6 @@
 import React, { Component } from "react";
 import './App.css';
 import Person from './Person/Person';
-import styled from 'styled-components';
-
-const StyledButton = styled.button`
-  background-color: white;
-  color: ${props => props.alt ? "green" : "red"};
-  font: inherit;
-  border: 1px solid
-    ${props => { props.alt ? "green" : "red" }};
-  padding: 8px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: lightgray;
-  }
-`;
 
 
 class App extends Component {
@@ -93,9 +78,9 @@ class App extends Component {
           Hi, I'm a React App
         </h1>
 
-        <StyledButton alt={this.state.showNames} onClick={() => this.toggleNameHandler("David")}>
+        <button alt={this.state.showNames} onClick={() => this.toggleNameHandler("David")}>
           Toggle Names
-        </StyledButton>
+        </button>
 
         <div>{persons}</div>
       </div>
